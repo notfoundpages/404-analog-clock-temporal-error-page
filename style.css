@@ -7,3 +7,208 @@ Live Preview → https://notfoundpages.github.io/404-analog-clock-temporal-error
 
 Discover the full collection → https://notfoundpages.github.io
 */
+
+:root {
+  --bg-color: #EAEAE8;
+  /* A sophisticated, warm stone gray */
+  --text-dark: #1A1A1A;
+  --accent: #D9381E;
+  /* A striking, mechanical vermilion red for the second hand */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === The 404 Temporal Display === */
+.temporal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+  /* Spacing between 4s and the clock */
+  margin-bottom: 4vh;
+}
+
+.digit {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(8rem, 25vw, 20rem);
+  font-weight: 300;
+  line-height: 0.8;
+  color: var(--text-dark);
+  letter-spacing: -0.05em;
+}
+
+/* === The Analog Clock (The '0') === */
+.clock-container {
+  position: relative;
+  /* Matches the visual weight and height of the 4s */
+  width: clamp(5.5rem, 17vw, 13.5rem);
+  height: clamp(5.5rem, 17vw, 13.5rem);
+  border-radius: 50%;
+  border: 2px solid var(--text-dark);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.03),
+    0 20px 40px rgba(0, 0, 0, 0.05);
+  background: #F2F2F0;
+}
+
+/* Subtle clock dial markings for scale */
+.clock-container::before {
+  content: '';
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  border-radius: 50%;
+  border: 1px dotted rgba(26, 26, 26, 0.2);
+  pointer-events: none;
+}
+
+.center-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-dark);
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.center-pin::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 2px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  z-index: 11;
+}
+
+/* Clock Hands Base */
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 4px 4px 0 0;
+  z-index: 5;
+  will-change: transform;
+  /* Hardware acceleration for buttery smooth sweeps */
+}
+
+.hour-hand {
+  width: 4px;
+  height: 25%;
+  background-color: var(--text-dark);
+  margin-left: -2px;
+}
+
+.minute-hand {
+  width: 2px;
+  height: 38%;
+  background-color: var(--text-dark);
+  margin-left: -1px;
+}
+
+.second-hand {
+  width: 1px;
+  height: 45%;
+  background-color: var(--accent);
+  margin-left: -0.5px;
+  z-index: 6;
+}
+
+/* Counterweight for the sweeping second hand */
+.second-hand::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 15%;
+  background-color: var(--accent);
+  border-radius: 0 0 2px 2px;
+}
+
+/* === UI Overlay & Typography === */
+.ui-text {
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #666;
+  max-width: 400px;
+  line-height: 1.6;
+  margin: 0 auto 2.5rem auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 32px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--bg-color);
+  background-color: var(--text-dark);
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  background-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(217, 56, 30, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
